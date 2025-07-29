@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const axios = require('axios');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // ✅ Use Render-assigned port
 
 // ✅ Firebase service account key
 const serviceAccount = require('./firebase-service-account.json');
@@ -60,7 +60,7 @@ app.post('/create-checkout', async (req, res) => {
             payment_method_types: ['gcash', 'card', 'paymaya'],
             description: `Payment for ${contact}`,
             statement_descriptor: 'Centralize',
-            reference_number: contact, // ✅ No more replace()
+            reference_number: contact,
             redirect: {
               success: 'https://google.com',
               failed: 'https://google.com'
@@ -95,7 +95,7 @@ app.post('/webhook', express.json(), async (req, res) => {
 
     if (eventType === 'payment.paid') {
       const reference = body.data.attributes.data.attributes.reference_number;
-      console.log(`🔍 Reference: ${reference}`); // Show reference
+      console.log(`🔍 Reference: ${reference}`);
 
       const userRef = db.ref(`devices/${reference}`);
       const now = new Date();
