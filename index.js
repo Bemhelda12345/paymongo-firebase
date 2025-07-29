@@ -3,11 +3,7 @@ const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
 const axios = require('axios');
 const app = express();
-<<<<<<< HEAD
 const PORT = process.env.PORT || 3000; // ✅ Use Render-assigned port
-=======
-const PORT = 3000;
->>>>>>> 496cd25da536b79680b13b2b8bbfe01b0055bdd3
 
 // ✅ Firebase service account key
 const serviceAccount = require('./firebase-service-account.json');
@@ -64,11 +60,7 @@ app.post('/create-checkout', async (req, res) => {
             payment_method_types: ['gcash', 'card', 'paymaya'],
             description: `Payment for ${contact}`,
             statement_descriptor: 'Centralize',
-<<<<<<< HEAD
             reference_number: contact,
-=======
-            reference_number: contact, // ✅ No more replace()
->>>>>>> 496cd25da536b79680b13b2b8bbfe01b0055bdd3
             redirect: {
               success: 'https://google.com',
               failed: 'https://google.com'
@@ -103,11 +95,7 @@ app.post('/webhook', express.json(), async (req, res) => {
 
     if (eventType === 'payment.paid') {
       const reference = body.data.attributes.data.attributes.reference_number;
-<<<<<<< HEAD
       console.log(`🔍 Reference: ${reference}`);
-=======
-      console.log(`🔍 Reference: ${reference}`); // Show reference
->>>>>>> 496cd25da536b79680b13b2b8bbfe01b0055bdd3
 
       const userRef = db.ref(`devices/${reference}`);
       const now = new Date();
